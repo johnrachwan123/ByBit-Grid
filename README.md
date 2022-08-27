@@ -19,7 +19,8 @@ ALSO INCLUDED:
 Very low cpu usage bot therefore it does not need any resources and can even be ran on a simple raspberry pi [couple of users only]. Error logging has been accomoplished,
 in the sense that in error.json the timestamp and error code will be sourced. Therefore when hitting a error in the system it can easily be found and replaced or asked to the creator(s).
 Beside all the data can be tracked in the log of the running bot where it will state what it is running. (Most of the time it is the checking and tracking part of the orders.)
-All the grid data can be found in grids.json including the status, price 
+All the grid data can be found in grids.json including the status, price, position and grid number. 
 
 COMING UP:
-A website in development for tracking your assets and your orders.
+A website in development for tracking your assets and your orders. Including your settings with API-keys. If that is a succes we look into creatnig and application
+used on the phone.
