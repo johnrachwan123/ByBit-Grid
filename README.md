@@ -26,4 +26,4 @@ A website in development for tracking your assets and your orders. Including you
 used on the phone.
 
 
-The content of this program is licensed under the Creative Commons Attribution 3.0 Unported License.
+This website and its content is copyright of Currency Finn - © Currency Finn 2022-2023. All rights reserved.
