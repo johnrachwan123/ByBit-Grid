@@ -1,4 +1,4 @@
-# ByBit
+# ByBit Grid Trading Bot
 
 ## SETUP:
 Fill in bybit API-, API SECRET-KEY into the session secret_settings.json
