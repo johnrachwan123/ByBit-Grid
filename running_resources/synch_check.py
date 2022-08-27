@@ -4,8 +4,9 @@ from heapq import nsmallest
 import json
 from created_session.session import session
 import multiprocessing
-from data.config import GRIDS
 from data.error_handle import error
+
+# Delay can be passed as a variable in the settings.json
 
 delay_tracker =2
 
@@ -160,7 +161,9 @@ def order_filled_checker(w):
     with open('grids.json') as f:
         data = json.load(f)
     lst_ordernumbers = [data[n]['order_id'] for n in data if n != 'upperlimit' and n !='lowerlimit']
+    
     ### we get index out of range when there are no grids placed in current price limiting error, want to cancel the order
+
     try:
         order_id_orderbook_filled = session.query_active_order(
                     symbol="BTCUSD",
@@ -213,6 +216,12 @@ def order_filled_checker(w):
 
 
 def order_filled_checker_processor():
+
+    with open("running_resources\created_session\settings_secret.json", "r") as f:
+        s_data = json.load(f)
+    
+    GRIDS = s_data["GRIDS"]
+    
     global pool_obj
     while True:
         with open('settings.json') as f:

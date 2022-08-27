@@ -8,12 +8,17 @@ from data.error_handle import error
 def place_orders():
 
     print(colored("placing all orders at grids", "yellow"))
+    
+    with open("running_resources\created_session\settings_secret.json", "r") as f:
+        s_data = json.load(f)
+    
+    GRIDS = s_data["GRIDS"]
 
     with open("running_resources\data\grids.json", "r") as f:
         data = json.load(f)
 
 
-    # use i instead of grid_number 
+    # use i instead of grid_number could be updated shortly
 
     grid_number = 0
 

@@ -1,8 +1,5 @@
-from tkinter.tix import Tree
 from created_session.session import session
 from termcolor import colored
-from data.config import GRIDS
-from data.config import LOWERLIMIT
 import json
 from running_resources.data.error_handle import error
 def wallet():
@@ -25,6 +22,11 @@ def wallet():
 
 def equity_perlevel():
 
+    with open("running_resources\created_session\settings_secret.json", "r") as f:
+        data = json.load(f)
+    
+    GRIDS = data["GRIDS"]
+    LOWERLIMIT = data['LOWERLIMIT']
     equity_perlevel = wallet()/GRIDS
 
     return float(equity_perlevel*LOWERLIMIT)

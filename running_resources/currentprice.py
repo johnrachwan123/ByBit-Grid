@@ -1,11 +1,14 @@
 from created_session.session import session
-from data.config import UPPERLIMIT
-from data.config import LOWERLIMIT
 from termcolor import colored
 import json
 from data.error_handle import error
 def currentprice():
-
+    with open("running_resources\created_session\settings_secret.json", "r") as f:
+        data = json.load(f)
+    
+    UPPERLIMIT = data["UPPERLIMIT"]
+    LOWERLIMIT = data['LOWERLIMIT']
+    
     all_coins = session.latest_information_for_symbol(
         symbol="BTCUSD"
     )

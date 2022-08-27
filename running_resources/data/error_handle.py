@@ -1,6 +1,6 @@
 import json
 from datetime import datetime
-import time
+
 
 def error(reason, quit):
     while True:
@@ -44,6 +44,3 @@ def error(reason, quit):
         except FileNotFoundError:
             with open("running_resources\data\errors.json", "w") as f:
                 continue
-start = time.time()
-end= time.time()
-print(end-start)

@@ -6,11 +6,18 @@ from running_resources.currentprice import currentprice
 from running_resources.synch_check import order_filled_checker_processor
 from running_resources.synch_check import tracker
 from running_resources.orders_place import place_orders
-import running_resources.data.config as config
+import json
+
+# for later usage we could run a module in the error script that is called initial error check, that checks if all json files are json files, all settings are filled in etc.
 
 if __name__ == "__main__":
 
-    if config.RUN_ONLY_ORDERCHECKS == True:
+    with open("running_resources\created_session\settings_secret.json", "r") as f:
+        s_data = json.load(f)
+    
+    RUN_ONLY_ORDERCHECKS = s_data["RUN_ONLY_ORDERCHECKS"]
+
+    if RUN_ONLY_ORDERCHECKS == True:
 
         print(colored("starting ByBit client", "yellow"))
 
