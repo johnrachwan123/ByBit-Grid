@@ -1,0 +1,8 @@
+{
+    "UPPERLIMIT": 45575.5,
+    "LOWERLIMIT": 28458.0,
+    "GRIDS": 40,
+    "MIN_PERC ": 0.1,
+    "RUN_ONLY_ORDERCHECKS": "False",
+    "STOP_EXECUTOR": "False"
+}
