@@ -2,9 +2,9 @@ from termcolor import colored
 import asyncio
 from heapq import nsmallest
 import json
-from created_session.session import session
-import multiprocessing
-from data.error_handle import error
+from .created_session.session import session
+# import multiprocessing
+from .data.error_handle import error
 
 # Delay can be passed as a variable in the settings.json
 
@@ -24,7 +24,7 @@ async def tracker(currentprice):
 
             pass
 
-        with open("grids.json", "r") as f:
+        with open("running_resources\data\running_resources\data\grids.json", "r") as f:
 
             data = json.load(f)
 
@@ -98,14 +98,14 @@ async def tracker(currentprice):
 
                     print(colored("lowerlimit order was not placed yet", "yellow"))
 
-                    order = session.place_active_order(side="Buy", symbol="BTCUSD",
+                    order = session.place_active_order(side="Buy", symbol="DOGEUSDT",
                                                           order_type="Limit", price=lowerlimit_price, qty=1, time_in_force="GoodTillCancel")
-                    with open('grids.json') as f:
+                    with open('running_resources\data\running_resources\data\grids.json') as f:
                         data = json.load(f)
                     data[f'grid_{lowerlimit_grid_number}']["position"] = "Buy"
                     data[f'grid_{lowerlimit_grid_number}']["order_id"] = order[0]["result"]["order_id"]
 
-                    with open('grids.json', 'w') as f:
+                    with open('running_resources\data\grids.json', 'w') as f:
                         json.dump(data, f, indent=4)
 
                     print(colored("lowerlimit is satisfied", "green"))
@@ -115,15 +115,15 @@ async def tracker(currentprice):
             else:
 
                 print(colored("upperlimit order was not placed yet", "yellow"))
-                order = session.place_active_order(side="Sell", symbol="BTCUSD",
+                order = session.place_active_order(side="Sell", symbol="DOGEUSDT",
                                                       order_type="Limit", price=upperlimit_price, qty=1, time_in_force="GoodTillCancel")
 
-                with open('grids.json') as f:
+                with open('running_resources\data\grids.json') as f:
                     data = json.load(f)
                 data[f'grid_{upperlimit_grid_number}']["position"] = "Sell"
                 data[f'grid_{upperlimit_grid_number}']["order_id"] = order[0]["result"]["order_id"]
 
-                with open('grids.json', 'w') as f:
+                with open('running_resources\data\grids.json', 'w') as f:
                     json.dump(data, f, indent=4)
 
                 if data[f'grid_{lowerlimit_grid_number}']["position"] == "Buy":
@@ -135,15 +135,15 @@ async def tracker(currentprice):
                 else:
 
                     print(colored("lowerlimit order was not placed yet", "yellow"))
-                    order = session.place_active_order(side="Buy", symbol="BTCUSD",
+                    order = session.place_active_order(side="Buy", symbol="DOGEUSDT",
                                                           order_type="Limit", price=lowerlimit_price, qty=1, time_in_force="GoodTillCancel")
-                    with open('grids.json') as f:
+                    with open('running_resources\data\grids.json') as f:
 
                         data = json.load(f)
                     data[f'grid_{lowerlimit_grid_number}']["position"] = "Buy"
                     data[f'grid_{lowerlimit_grid_number}']["order_id"] = order[0]["result"]["order_id"]
 
-                    with open('grids.json', 'w') as f:
+                    with open('running_resources\data\grids.json', 'w') as f:
                         json.dump(data, f, indent=4)
 
                     print(colored("lowerlimit is satisfied", "green"))
@@ -158,17 +158,14 @@ async def tracker(currentprice):
 
 
 def order_filled_checker(w):
-    with open('grids.json') as f:
+    with open('running_resources\data\grids.json') as f:
         data = json.load(f)
     lst_ordernumbers = [data[n]['order_id'] for n in data if n != 'upperlimit' and n !='lowerlimit']
-    
     ### we get index out of range when there are no grids placed in current price limiting error, want to cancel the order
 
     try:
-        order_id_orderbook_filled = session.query_active_order(
-                    symbol="BTCUSD",
-                order_id=lst_ordernumbers[w]
-                    )["result"]["order_status"]
+        order_id_orderbook_filled = session.get_open_orders(symbol="DOGEUSDT", order_id=lst_ordernumbers[w])["result"]["order_status"]
+
     except IndexError:
 
         print(colored("previous Error occurred [order checker]", "red"))
@@ -189,12 +186,12 @@ def order_filled_checker(w):
 
             else:
 
-                with open('grids.json') as f:
+                with open('running_resources\data\grids.json') as f:
                     data = json.load(f)
 
                 data[f'grid_{grid_number_of_filled_order}']["position"] = 'Filled'
 
-                with open('grids.json', 'w') as f:
+                with open('running_resources\data\grids.json', 'w') as f:
                     json.dump(data, f, indent=4)
 
                 print(
@@ -217,19 +214,21 @@ def order_filled_checker(w):
 
 def order_filled_checker_processor():
 
-    with open("running_resources\created_session\settings_secret.json", "r") as f:
+    with open("running_resources\data\settings.json", "r") as f:
         s_data = json.load(f)
     
     GRIDS = s_data["GRIDS"]
     
     global pool_obj
     while True:
-        with open('settings.json') as f:
+        with open('running_resources\data\settings.json') as f:
             data = json.load(f)
         if data["STOP_EXECUTOR"] == "False":
             print(colored("order checker is ran", "yellow"))
-            pool_obj = multiprocessing.Pool(2)
-            pool_obj.map(order_filled_checker, range(0, GRIDS))
+            # pool_obj = multiprocessing.Pool(2)
+            # pool_obj.map(order_filled_checker, range(0, GRIDS))
+            # for i in range(GRIDS):
+            #     order_filled_checker(i)
         else:
             try: 
                 pool_obj.close()

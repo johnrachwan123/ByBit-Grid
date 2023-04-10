@@ -1,4 +1,4 @@
-from created_session.session import session
+from .created_session.session import session
 from termcolor import colored
 import json
 from running_resources.data.error_handle import error

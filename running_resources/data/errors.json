@@ -1,2 +1,33 @@
 {
+    "stop_excecutor": "True",
+    "error": {
+        "error_1": {
+            "reason": "price has reached lowerlimit cancelling all orders",
+            "timestamp": "2023-04-10 15:29:57.323279"
+        },
+        "error_2": {
+            "reason": "currentprice is under the lowerlimit",
+            "timestamp": "2023-04-10 15:30:59.811679"
+        },
+        "error_3": {
+            "reason": "currentprice is under the lowerlimit",
+            "timestamp": "2023-04-10 15:33:55.640279"
+        },
+        "error_4": {
+            "reason": "price has reached lowerlimit cancelling all orders",
+            "timestamp": "2023-04-10 16:10:11.879060"
+        },
+        "error_5": {
+            "reason": "upperlimit should be higher than lowerlimit",
+            "timestamp": "2023-04-10 16:10:59.216294"
+        },
+        "error_6": {
+            "reason": "upperlimit or lowerlimit is one of the levels an order want to be placed, change amount of grids or starting value. 'order_id'",
+            "timestamp": "2023-04-10 16:12:07.632443"
+        },
+        "error_7": {
+            "reason": "upperlimit or lowerlimit is one of the levels an order want to be placed, change amount of grids or starting value. 'order_id'",
+            "timestamp": "2023-04-10 16:13:12.627024"
+        }
+    }
 }

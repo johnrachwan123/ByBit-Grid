@@ -1,16 +1,15 @@
 import json
-from data.config import UPPERLIMIT
-from data.config import LOWERLIMIT
-from data.config import GRIDS
-from data.config import MIN_PERC
+from .data.config import UPPERLIMIT
+from .data.config import LOWERLIMIT
+from .data.config import GRIDS
+from .data.config import MIN_PERC
 from termcolor import colored
-from data.error_handle import error
+from .data.error_handle import error
 
 # needs to check if it is a json for grids.json because sometimes some people just delete the {}
 def grid(currentprice):
 
     print(colored("setting up grid", "yellow"))
-
     if UPPERLIMIT > LOWERLIMIT:
 
         if currentprice < UPPERLIMIT:

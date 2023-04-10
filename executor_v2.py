@@ -12,7 +12,7 @@ import json
 
 if __name__ == "__main__":
 
-    with open("running_resources\created_session\settings_secret.json", "r") as f:
+    with open("running_resources\data\settings.json", "r") as f:
         s_data = json.load(f)
     
     RUN_ONLY_ORDERCHECKS = s_data["RUN_ONLY_ORDERCHECKS"]

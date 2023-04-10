@@ -1,4 +1,4 @@
-from pybit.inverse_perpetual import HTTP
+from pybit.unified_trading import HTTP
 import json
 with open("running_resources\created_session\settings_secret.json", "r") as f:
     data = json.load(f)
@@ -8,5 +8,4 @@ API_SECRET = data['API_SECRET']
 
 
 
-session = HTTP("https://api.bybit.com",
-               api_key=API, api_secret=API_SECRET)
+session = HTTP(api_key=API, api_secret=API_SECRET)
